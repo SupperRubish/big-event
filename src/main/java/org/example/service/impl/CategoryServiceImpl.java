@@ -32,7 +32,6 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> list() {
         Map<String,Object> map = ThreadLocalUtil.get();
         Integer userid = (Integer) map.get("id");
-        categoryMapper.list(userid);
         return categoryMapper.list(userid);
     }
 
