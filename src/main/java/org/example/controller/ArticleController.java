@@ -16,9 +16,6 @@ import java.util.Map;
 @RequestMapping("/article")
 public class ArticleController {
 
-    @GetMapping("/list")
-    public Result<String> list(/*@RequestHeader(name="Authorization") String token, HttpServletResponse response*/){
 
-        return Result.success("所有文章数据....");
-    }
+
 }
