@@ -91,7 +91,23 @@
       <artifactId>fastjson</artifactId>
       <version>1.2.54</version>
     </dependency>
+<!--    redis坐标-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
 
 
   </dependencies>
+
+  <build>
+    <plugins>
+<!--      打包插件-->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>3.0.5</version>
+      </plugin>
+    </plugins>
+  </build>
 </project>

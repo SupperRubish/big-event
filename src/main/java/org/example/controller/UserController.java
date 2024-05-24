@@ -8,6 +8,8 @@ import org.example.utils.Md5Util;
 import org.example.utils.ThreadLocalUtil;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.Pattern;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @Validated
@@ -22,6 +25,9 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     @PostMapping("/register")
     public Result register(@Pattern(regexp = "^[a-zA-Z0-9_]{5,16}$") String username, @Pattern(regexp = "^[a-zA-Z0-9_]{5,16}$")String password){
             //查询用户
@@ -51,6 +57,8 @@ public class UserController {
             claim.put("username",loginUser.getUsername());
             claim.put("id",loginUser.getId());
             String token = JwtUtil.genToken(claim);
+            ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+            operations.set(token,token,12, TimeUnit.HOURS);
             return Result.success(token);
         }
         return Result.error("密码错误");
@@ -79,7 +87,7 @@ public class UserController {
         return Result.success();
     }
     @PatchMapping("/updatePwd")
-    public Result updatePwd(@RequestBody Map<String,String> params){
+    public Result updatePwd(@RequestBody Map<String,String> params,@RequestHeader("Authorization") String token){
         //校验参数
         String oldPwd = params.get("old_pwd");
         String rePwd = params.get("re_pwd");
@@ -103,6 +111,11 @@ public class UserController {
 
         //调用service完成密码更新
         userService.updatePwd(newPwd);
+
+        //删除对应的token
+        ValueOperations<String, String> operation = stringRedisTemplate.opsForValue();
+        operation.getOperations().delete(token);
+
         return Result.success();
 
     }
