@@ -1,1 +1,2 @@
 # big-event
+大事件网站，使用spring Boot框架，Mybatis连接数据库；Jwt实现Token生成和解析；ThreadLocal实现对应线程用户信息的保存；Redis优化登录功能，通过对比header中Token和redis中的token判断账号是否需要重新登录；validation使用注解对参数进行校验；Junit测试接口，辅助开发。上传文件到七牛云服务器模拟实际应用，实现头像和文章封面的图片功能。
