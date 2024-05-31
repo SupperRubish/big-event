@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 @RestController
 @Validated
+@CrossOrigin//支持跨域
 @RequestMapping("/user")
 public class UserController {
     @Autowired

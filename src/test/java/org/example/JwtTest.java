@@ -29,9 +29,7 @@ public class JwtTest {
     }
     @Test
     public void testParse(){
-        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9." +
-                "eyJleHAiOjE3MTY0NTk2OTMsInVzZXIiOnsibmFtZSI6IuW8oOS4iSIsImlkIjoxfX0." +
-                "TofJknqOkBaQ8hIX9xWA4ax6kupQKYQAYIqAltP1XlI";
+        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTY2MTYzODMsInVzZXIiOnsibmFtZSI6IuW8oOS4iSIsImlkIjoxfX0.5Zu0GY4PIvjKBdLfBU2qPsCEiepLrbssu2UYpzmJZ-8";
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("cheng")).build();//验证器
         DecodedJWT decodedJWT = jwtVerifier.verify(token);//解析后的JWT对象
         Map<String, Claim> claims = decodedJWT.getClaims();

@@ -12,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @Validated
+@CrossOrigin//支持跨域
 @RequestMapping("/category")
 public class CategoryController {
 

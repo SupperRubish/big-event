@@ -14,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @Validated
+@CrossOrigin//支持跨域
 @RequestMapping("/article")
 public class ArticleController {
 
